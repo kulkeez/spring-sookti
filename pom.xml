@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.kulkeez</groupId>
+	<artifactId>sookti</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+
+	<name>sookti-service</name>
+	<description>Sookti - accelerator to develop applications using Spring Framework</description>
+  	<inceptionYear>2022</inceptionYear>
+
+	<developers>
+    	<developer>
+      		<id>kulkeez</id>
+      		<name>Vikram Kulkarni</name>
+      		<email>kulkeez@yahoo.com</email>
+      		<url>http://www.hpe.com</url>
+			<roles>
+				<role>Programmer</role>
+			</roles>
+			<timezone>+5</timezone>  
+		</developer>
+  	</developers>
+		
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.6</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<requireMavenVersion>3.6</requireMavenVersion>
+		<java.version>11</java.version>
+	</properties>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!-- This profile is active by default.
+                     When this profile is active, only unit tests are run -->
+                <activeByDefault>true</activeByDefault>
+                
+                <!-- activate if system properties 'env=dev' -->
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+            	<maven.test.skip>false</maven.test.skip>
+            </properties>		
+        </profile>
+        
+        <profile>
+            <id>prod</id>
+            <activation>
+                <!-- activate if system properties 'env=prod' -->
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+            </properties>
+        </profile>
+               
+    </profiles>
+    		
+	<dependencies>
+	
+		<!--  By default, Spring Boot use Tomcat as the default embedded server.
+		  	  To change it to Jetty, we exclude Tomcat and include Jetty dependency
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+			<!-- Comment this if wanting to use default Tomact Server -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Replacing default Tomcat Server with Eclipse Jetty -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+        	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- hot swapping, disable cache for template, enable live reload -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>		
+
+		<!--  Enable Actuator endpoints for monitoring health -->
+		<!--  A new set of RESTful end points are added to the application such as /env, /health, /info, /metrics, /trace and /dump -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>	
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+							
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<!-- display active profile in compile phase -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-help-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>show-profiles</id>
+						<phase>none</phase>  <!--  change to 'compile' to debug & troubleshoot -->
+						<goals>
+							<goal>active-profiles</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>   			
+		</plugins>
+
+		<!-- share the same plugin configuration across all project modules -->
+		<!-- and lock down plugin versions to avoid using Maven defaults    -->
+		<pluginManagement>
+		  <plugins>
+		  						
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>${maven.enforcer.plugin}</version>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>${requireMavenVersion}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+				
+		  </plugins>
+		</pluginManagement>
+				
+	</build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+			<snapshots>
+            	<enabled>true</enabled>
+        	</snapshots>             
+        </repository>
+    </repositories>
+    
+</project>
