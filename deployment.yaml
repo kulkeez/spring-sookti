@@ -6,7 +6,7 @@ metadata:
     deployment.kubernetes.io/revision: "1"
   labels:
     app: sookti-app
-  name: sookti-deploy
+  name: sookti
   namespace: default
 spec:
   replicas: 1
@@ -42,7 +42,7 @@ kind: Service
 metadata:
   labels:
     app: sookti-app
-  name: sookti-service
+  name: sookti
   namespace: default
 spec:
   ports:
@@ -52,4 +52,4 @@ spec:
   selector:
     app: sookti-app
   sessionAffinity: None
-  type: LoadBalancer  
+  type: ClusterIP  
