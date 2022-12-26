@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  labels:
+    app: sookti-app
+  name: sookti-deploy
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sookti-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: sookti-app
+    spec:
+      containers:
+      - image: sookti:0.1
+        imagePullPolicy: IfNotPresent
+        name: sookti-app
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health/readiness
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health/liveness        
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sookti-app
+  name: sookti-service
+  namespace: default
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: sookti-app
+  sessionAffinity: None
+  type: LoadBalancer  
