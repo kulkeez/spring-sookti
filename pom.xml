@@ -29,14 +29,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.6</version>
+		<version>2.7.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<requireMavenVersion>3.6</requireMavenVersion>
+		<requireMavenVersion>3.9.0</requireMavenVersion>
 		<java.version>11</java.version>
 	</properties>
 
@@ -157,7 +157,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>${maven.enforcer.plugin}</version>
 				<executions>
 					<execution>
 						<id>enforce-versions</id>
