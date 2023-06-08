@@ -1,0 +1,32 @@
+{
+   "name": "JavaDev",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+			"version": "17",
+			"installMaven": "true",
+			"installGradle": "false"
+		},        
+		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
+  },
+  
+  // Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"vscjava.vscode-java-pack",
+		"Pivotal.vscode-boot-dev-pack",
+	],
+
+  "customizations": {
+		"codespaces": {
+		  "openFiles": [
+			  "pom.xml"
+		  ]
+		}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "java -version"
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
