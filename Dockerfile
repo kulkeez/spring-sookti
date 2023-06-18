@@ -1,5 +1,5 @@
 # Containerize using OpenJDK and Alpine
-FROM openjdk:11-jre-slim-buster
+FROM openjdk:17-alpine
 
 ARG JAR_FILE=target/*.jar
 
