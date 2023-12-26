@@ -1,0 +1,32 @@
+name: Hello World Workflow
+
+# Trigger this workflow whenever new code is pushed to the "main" branch or a pull request is made on the "main" branch
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  # This workflow contains a two jobs, the first one is called "hello". If multiple jobs were defined, they could be run parallely 
+  # using two Runners. We also define another job called "goodbye".
+  hello:
+    # The type of runner that the job will run on. Runner is a machine that can connect to GitHub, run the steps
+    # and log the results back to GitHub
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job - they cannot run in parallel.
+    steps:
+      - name: Hello world
+        run: echo "Hello World - call for GitHub Actions!!!""
+        shell: bash
+  
+  # We define another job called "goodbye".
+  goodbye:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Goodbye world
+        run: echo "Goodbye GitHub Actions World !!!""
+        shell: bash
+               
