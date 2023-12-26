@@ -19,7 +19,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job - they cannot run in parallel.
     steps:
       - name: Hello world
-        run: echo "Hello World - call for GitHub Actions!!!""
+        run: echo "Hello World - call for GitHub Actions!!!"
         shell: bash
   
   # We define another job called "goodbye".
@@ -27,6 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Goodbye world
-        run: echo "Goodbye GitHub Actions World !!!""
+        run: echo "Goodbye GitHub Actions World !!!"
         shell: bash
                
