@@ -1,21 +1,25 @@
 # This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
-name: Java CI with Maven
+name: CI
 
+# Trigger this workflow whenever new code is pushed to the "main" branch or a pull request is made on the "main" branch
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+  workflow_dispatch: 
+    
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called "build". If multiple jobs were defined, they could be run parallely 
+  # using two Runners. 
   build:
-    # The type of runner that the job will run on
+    # The type of runner that the job will run on. Runner is a machine that can connect to GitHub, run the steps
+    # and log the results back to GitHub
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks that will be executed as part of the job - they cannot run in parallel.
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -51,5 +55,6 @@ jobs:
           cache: maven
           server-id: central
       
+      # Compile the Java code using Maven 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
