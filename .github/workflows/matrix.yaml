@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       # we define a build matrix that allows us to test across two operating systems and two different versions of Java 
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
         jdk: [17, 21]
     runs-on: ${{ matrix.os }}
     env: 
