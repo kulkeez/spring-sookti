@@ -6,8 +6,13 @@
 			"version": "17",
 			"installMaven": "true",
 			"installGradle": "false"
-		},        
+		},
+		"aws-cli": "latest",
+		"ghcr.io/mpriscella/features/kind:1": {},
 		"ghcr.io/stuartleeks/dev-container-features/shell-history:0": {}
+  },
+  "remoteEnv": {
+    "AWS_DEFAULT_REGION": "ap-south-1"
   },
   
   // Add the IDs of extensions you want installed when the container is created.
